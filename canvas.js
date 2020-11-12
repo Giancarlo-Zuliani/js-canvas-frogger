@@ -113,25 +113,38 @@ function onKeyDown(evt){
       break;
   }
 }
+
 var allx=[];
 var alltarget=[];
 
 function checkCollision(){
   allx =[];
-  for(i=0 ; i < 200;i++){
-    let x = { Y : frogY+i , X :frogX+i};
-    allx.push(x);
-  }
+  for(i=0 ; i < size ;i++){
+    let rightside = { Y : frogY+i , X :frogX};
+    let upperside = {Y: frogY, X : frogX + i}
+    let leftside = {Y:frogY+i ,X : frogX + size}
+    let bottomside = {Y:frogY+size , X :frogX + i}
+    allx.push(rightside);
+    allx.push(upperside);
+    allx.push(leftside);
+    allx.push(bottomside);
+   }
   alltarget =[]
-  for(i=0 ; i < 20; i++){
-    let y = {Y:t.y+i , X : t.x+i};
-    alltarget.push(y);
+  for(i=0 ; i < size ; i++){
+    let rightside = { Y : t.y + i , X :t.x};
+    let upperside = {Y: t.y, X : t.x + i}
+    let leftside = {Y:t.y + i ,X : t.x + size}
+    let bottomside = {Y:t.y + size , X :t.x+ i}
+    alltarget.push(rightside);
+    alltarget.push(leftside);
+    alltarget.push(upperside);
+    alltarget.push(bottomside);
   }
-    for(i=0;i<allx.length;i++){
-    for(j=0;j<alltarget.length;j++){
-      if(alltarget[j].X === allx[i].X  && alltarget[j].Y === allx[i].Y){
-        console.log('collision detected');
+  alltarget.forEach((item) =>{
+    allx.forEach((ele) =>{
+      if(item.X === ele.X && item.Y === ele.Y){
+        console.log('collision detected')
       }
-    }
-  }
+    })
+  })
 }
