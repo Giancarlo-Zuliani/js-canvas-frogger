@@ -12,21 +12,18 @@ var gamearea = {
     this.canvas.height = 600;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas , document.body.childNodes[0]);
-    this.interval=setInterval(this.updateGameArea,30);
+    this.interval=setInterval(this.updateGameArea,80);
     t= new target();
-    x= new target2();
     f = new frog();
   },
   updateGameArea:function(){
     t.update();
-    x.update();
     f.update();
-    t.x >= 600 ? t = new target : t.x++
-    x.x >= 600 ? x = new target2() : x.x++
+
     gamearea.clear()
     t.draw();
-    x.draw();
     f.draw(frogX,frogY);
+    checkCollision();
   },
   clear:function(){
     gamearea.context.clearRect(0,0,gamearea.canvas.width,gamearea.canvas.height);
@@ -34,8 +31,8 @@ var gamearea = {
 };
 
 function target(){
-  this.y = 100;
-  this.x=-100;
+  this.y = 300;
+  this.x=300;
   this.draw = function(){
     gamearea.context.fillStyle = "green";
     gamearea.context.fillRect(this.x,this.y,size,size);
@@ -53,7 +50,7 @@ function target2(){
     gamearea.context.fillRect(this.x,this.y,size,size);
   };
   this.update= function(){
-    this.x = this.x++;
+    this.x = this.x;
   };
 }
 var frogX = 300;
@@ -114,5 +111,27 @@ function onKeyDown(evt){
     case 87 :
       f.move('UP');
       break;
+  }
+}
+var allx=[];
+var alltarget=[];
+
+function checkCollision(){
+  allx =[];
+  for(i=0 ; i < 200;i++){
+    let x = { Y : frogY+i , X :frogX+i};
+    allx.push(x);
+  }
+  alltarget =[]
+  for(i=0 ; i < 20; i++){
+    let y = {Y:t.y+i , X : t.x+i};
+    alltarget.push(y);
+  }
+    for(i=0;i<allx.length;i++){
+    for(j=0;j<alltarget.length;j++){
+      if(alltarget[j].X === allx[i].X  && alltarget[j].Y === allx[i].Y){
+        console.log('collision detected');
+      }
+    }
   }
 }
