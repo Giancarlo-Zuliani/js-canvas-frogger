@@ -32,24 +32,24 @@ var gamearea = {
 
 function target(){
   this.y = 100;
-  this.x= 0;
+  this.x=-100;
   this.draw = function(){
     gamearea.context.fillStyle = "green";
     gamearea.context.fillRect(this.x,this.y,size,size);
   };
   this.update= function(){
-    this.x = this.x+10;
+    this.x = this.x++;
   };
 }
 
 function target2(){
   this.y = 300;
-  this.x= 100;
+  this.x= -1000;
   this.draw = function(){
     gamearea.context.fillStyle = "green";
     gamearea.context.fillRect(this.x,this.y,size,size);
   };
   this.update= function(){
-    this.x = this.x+10;
+    this.x = this.x++;
   };
 }
