@@ -14,15 +14,14 @@ var gamearea = {
     this.canvas.height = 600;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas , document.body.childNodes[0]);
-    this.interval=setInterval(this.updateGameArea,80);
+    this.interval=setInterval(this.updateGameArea,10);
     t= new target();
     f = new frog();
   },
   updateGameArea:function(){
     t.update();
     f.update();
-
-    gamearea.clear()
+    gamearea.clear();
     t.draw();
     f.draw(frogX,frogY);
     checkCollision();
@@ -40,7 +39,7 @@ function target(){
     gamearea.context.fillRect(this.x,this.y,size,size);
   };
   this.update= function(){
-    this.x = this.x++;
+    this.x = this.x;
   };
 }
 
@@ -71,43 +70,43 @@ function frog(){
     let ax
     switch(dir){
       case  'R' :
-         mod = 1;
-         ax = 'x'
-        break;
+       mod = 8;
+       ax = 'x';
+      break;
 
       case 'L' :
-         mod =-1
-         ax = 'x'
-        break;
+       mod =-15;
+       ax = 'x';
+      break;
 
       case 'UP' :
-        mod = -1;
-       ax ='y'
-        break;
+        mod = -5;
+        ax ='y'
+      break;
 
       case 'DOWN':
-       mod = 1;
+       mod = 15;
        ax = 'y'
       break;
     }
     if(ax ==='x'){
       count = 0
-      var int =setInterval(function(){
-        frogX += mod;
-        count++
-        if(count >= 20){
-          clearInterval(int);
-        }
-      },5)
+      frogX += mod;
+      // var int =setInterval(function(){
+      //   count++
+      //   if(count >= 10){
+      //     clearInterval(int);
+      //   }
+      // },1)
     }else{
-      count=0
+      count = 0
+      frogY += mod;
       var int =setInterval(function(){
-        frogY += mod;
         count++
         if(count >= 20){
           clearInterval(int);
         }
-      },5)
+      },1)
     }
   }
   this.update = function(){
@@ -122,6 +121,7 @@ function smoothMovingFrog(){
 }
 
 function onKeyDown(evt){
+  evt.preventDefault();
   let keycode = event.keyCode;
     switch(keycode){
     case 68:
