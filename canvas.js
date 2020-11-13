@@ -1,8 +1,10 @@
 
+
 function startGame(){
   gamearea.start();
 }
 
+var  count = 0
  var size = 20;
 
 var gamearea = {
@@ -65,27 +67,47 @@ function frog(){
     gamearea.context.fillRect(frogX,frogY,size,size);
   }
   this.move = function(dir){
-    gamearea.context.fillStyle = 'blue';
+    let mod
+    let ax
     switch(dir){
       case  'R' :
-        frogX += 5;
-        gamearea.context.fillRect(frogX , frogY ,size,size);
+         mod = 1;
+         ax = 'x'
         break;
 
       case 'L' :
-      frogX -= 5;
-        gamearea.context.fillRect(frogX,frogY,size,size);
+         mod =-1
+         ax = 'x'
         break;
 
       case 'UP' :
-       frogY-=5;
-        gamearea.context.fillRect(frogX,frogY,size,size);
+        mod = -1;
+       ax ='y'
         break;
 
       case 'DOWN':
-      frogY+=5;
-      gamearea.context.fillRect(frogX,frogY,size,size);
+       mod = 1;
+       ax = 'y'
       break;
+    }
+    if(ax ==='x'){
+      count = 0
+      var int =setInterval(function(){
+        frogX += mod;
+        count++
+        if(count >= 20){
+          clearInterval(int);
+        }
+      },5)
+    }else{
+      count=0
+      var int =setInterval(function(){
+        frogY += mod;
+        count++
+        if(count >= 20){
+          clearInterval(int);
+        }
+      },5)
     }
   }
   this.update = function(){
@@ -95,6 +117,9 @@ function frog(){
 }
 
 window.addEventListener('keydown' ,onKeyDown,false);
+function smoothMovingFrog(){
+
+}
 
 function onKeyDown(evt){
   let keycode = event.keyCode;
